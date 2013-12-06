@@ -125,7 +125,7 @@ stored in a MySQL *latin1* column, again misinterpreted and encoded to UTF-8 by
 ``mysqldump``::
 
     $ cat mojibake-crap.sql \
-      | convert-utf8-to-mysql-latin1 \
+      | python -m mysql_latin1_codec -f UTF-8 \
       | iconv -f GB2312 -t UTF-8 \
       > legible-text-in-utf8.sql
 
