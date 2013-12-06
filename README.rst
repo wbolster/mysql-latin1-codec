@@ -60,7 +60,7 @@ various I/O functions like ``io.open()``. Example::
     import mysql_latin1_codec
 
     # String encoding/decoding round-trip
-    s = u'foobar'
+    s1 = u'foobar'
     b = text.encode('mysql_latin1')
     s2 == b.decode('mysql_latin1')
     assert s1 == s2
