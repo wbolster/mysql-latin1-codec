@@ -38,6 +38,19 @@ Rationale
   like *iconv* is also included.
 
 
+Version history
+===============
+
+* Version 2.0 (2014-01-31)
+
+  * Added explicit ``register()`` function instead of having side-effects upon
+    module import.
+
+* Version 1.0 (2013-12-04)
+  
+  * Initial release
+
+
 Installation
 ============
 
