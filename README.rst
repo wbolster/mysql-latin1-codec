@@ -12,6 +12,7 @@ Overview
 This project provides a Python string codec for MySQL's *latin1* encoding, and
 an accompanying *iconv*-like command line script for use in shell pipes.
 
+
 Rationale
 =========
 
@@ -44,32 +45,19 @@ Installation
 
     $ pip install mysql-latin1-codec
 
-This should work for Python 2 and 3.
+The package supports both Python 2 and Python 3.
 
 
 Usage
 =====
 
-In Python code, simply import the module named ``mysql_latin1_codec``. A string
-codec named ``mysql_latin1`` will be registered in Python's codec registry, and
-you can use it using the normal ``.decode()`` and ``.encode()`` methods on
-(byte)strings, and you can also specify it as the ``encoding`` argument to
-various I/O functions like ``io.open()``. Example::
+You can use this project in two ways: as a stand-alone command line tool and as
+a Python module.
 
-    # A simple import will register the codec
-    import mysql_latin1_codec
+Command line tool
+-----------------
 
-    # String encoding/decoding round-trip
-    s1 = u'foobar'
-    b = text.encode('mysql_latin1')
-    s2 == b.decode('mysql_latin1')
-    assert s1 == s2
-
-    # Reading files (Python 3; use codecs.open() in Python 2)
-    with open('/path/to/file', 'r', encoding='mysql_latin1') as fp:
-        data = fp.read()
-
-There is also a command line tool that behaves like *iconv*::
+The command line tool behaves like *iconv*::
 
     $ python -m mysql_latin1_codec --help
     usage: mysql_latin1_codec.py [-h] [-f encoding] [-t encoding] [-o filename]
@@ -91,6 +79,34 @@ There is also a command line tool that behaves like *iconv*::
       -o filename, --output filename
                             Output file (defaults to stdout)
       -c, --skip-invalid    Omit invalid characters from output (not the default)
+
+
+Python API
+----------
+
+In Python code, simply import the module named ``mysql_latin1_codec`` and call
+the ``register()`` function. A string codec named ``mysql_latin1`` will be
+registered in Python's codec registry::
+
+    import mysql_latin1_codec
+
+    mysql_latin1_codec.register()
+
+You can use it using the normal ``.decode()`` and ``.encode()`` methods on
+(byte)strings, and you can also specify it as the ``encoding`` argument to
+various I/O functions like ``io.open()``. Example::
+
+
+    # String encoding/decoding round-trip
+    s1 = u'foobar'
+    s2 == text.encode('mysql_latin1').decode('mysql_latin1')
+    assert s1 == s2
+
+    # Reading files
+    import io
+    with io.open('/path/to/file', 'r', encoding='mysql_latin1') as fp:
+        for line in fp:
+            pass
 
 
 Practical examples
@@ -225,7 +241,7 @@ processing, e.g. using iconv to "reinterpret" the data correctly (e.g. as
 UTF-8).
 
 
-I have no clue what this is all about!
-======================================
+I have no idea what you are talking about!
+==========================================
 
-No worries, it's okay.
+No worries, that's okay.
