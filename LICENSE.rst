@@ -1,7 +1,7 @@
 License
 =======
 
-Copyright © 2013, Wouter Bolsterlee
+Copyright © 2013–2014, Wouter Bolsterlee
 
 All rights reserved.
 
