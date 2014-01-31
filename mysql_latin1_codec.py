@@ -1,5 +1,7 @@
 """
 Python codec module implementing MySQL's non-standard "latin1" codec.
+
+Use the register()
 """
 
 from __future__ import unicode_literals
@@ -7,6 +9,8 @@ from __future__ import unicode_literals
 import codecs
 import encodings.cp1252
 import sys
+
+__all__ = ['register']
 
 ENCODING_NAME = "mysql_latin1"
 
@@ -53,14 +57,10 @@ def getregentry():
         streamwriter=StreamWriter,
     )
 
-
 # (Copy/paste ends here)
 
 
-#
 # Adapt the built-in cp1252 tables to match MySQL's implementation.
-#
-
 table = list(encodings.cp1252.decoding_table)
 table[0x81] = '\u0081'
 table[0x8d] = '\u008d'
@@ -71,17 +71,21 @@ decoding_table = ''.join(table)
 encoding_table = codecs.charmap_build(decoding_table)
 
 
-#
-# Register the new encoding with the Python codec registry.
-#
-
 def search(name):
+    """Helper for registration in the Python codec registry."""
     if name == ENCODING_NAME:
         return getregentry()
 
     return None  # signals no match
 
-codecs.register(search)
+
+#
+# Public API
+#
+
+def register():
+    """Register the "mysql_latin1" codec in the codec registry."""
+    codecs.register(search)
 
 
 #
@@ -92,6 +96,9 @@ codecs.register(search)
 def main():
     import argparse
     import shutil
+
+    register()
+
     parser = argparse.ArgumentParser(
         description="iconv-like tool to encode or decode data using "
                     "MySQL's \"latin1\" dialect, which, despite the "

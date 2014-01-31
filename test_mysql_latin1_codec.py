@@ -3,7 +3,9 @@ from __future__ import unicode_literals
 
 import pytest
 
-import mysql_latin1_codec  # noqa
+import mysql_latin1_codec
+
+mysql_latin1_codec.register()
 
 
 def test_codec_registration():
