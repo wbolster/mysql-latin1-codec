@@ -11,7 +11,7 @@ setup(
     name='mysql-latin1-codec',
     description='Python string codec for MySQL\'s latin1 encoding',
     long_description=open(here('README.rst')).read(),
-    version="1.0",
+    version="2.0",
     py_modules=['mysql_latin1_codec'],
     author="Wouter Bolsterlee",
     author_email="uws@xs4all.nl",
